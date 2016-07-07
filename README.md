@@ -37,16 +37,16 @@
 
 >基本
 
-1. allocator 空间配置器 
-2. typetraits 类型萃取器
-3. iterator 迭代器
-4. construct 对象构造器
+1. allocator 空间配置器 done 
+2. typetraits 类型萃取器 done
+3. iterator 迭代器 done
+4. construct 对象构造器 done
 5. alogritm 算法库
-6. unitialized 容器构造器
+6. unitialized 容器构造器 done
 
 >容器
 
-1. vector
+1. vector 完成构造，插入，销毁功能
 2. list
 3. string
 4. deque
@@ -62,7 +62,7 @@
 
 -------------------
 ###测试
-1. vector
+1. vector 构造功能ok
 
 
 
