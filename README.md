@@ -11,6 +11,11 @@
 - **内存管理，数据结构**
 
 -------------------
+###STL文件关系树
+
+![父子进程通信](https://github.com/hunterzhao/EasySTL/blob/master/pic/STL%E6%96%87%E4%BB%B6%E5%85%B3%E7%B3%BB%E6%A0%91.png?raw=true)
+
+-------------------
 
 ### 环境
 - windows10
@@ -32,15 +37,16 @@
 
 >基本
 
-1. allocator 空间配置器    done
-2. typetraits 类型萃取器   done
-3. iterator 迭代器             done
-4. construct 对象构造器   done
-5. unitialized 容器构造器  done
+1. allocator 空间配置器 
+2. typetraits 类型萃取器
+3. iterator 迭代器
+4. construct 对象构造器
+5. alogritm 算法库
+6. unitialized 容器构造器
 
 >容器
 
-1. vector  完成构造功能
+1. vector
 2. list
 3. string
 4. deque
@@ -51,10 +57,8 @@
 
 >算法
 
-1. fill  done
-2. fill_n  done
-3. distance  done
-4. copy  done
+1. Qsort
+2. AVL tree
 
 -------------------
 ###测试
