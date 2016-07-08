@@ -6,7 +6,7 @@
 
 #include "allocator.h"
 #include "algorithm.h"
-//#include "iterator.h"
+#include "iterator.h"
 //#include "construct.h"
 #include "uninitialized.h"
 
@@ -46,8 +46,8 @@ namespace EasySTL {
         }
 
     public:
-        iterator begin() { return start_;}
-        iterator end()   { return finish_;}
+        iterator begin() const { return start_;}
+        iterator end() const  { return finish_;}
         size_type size() const { return size_type(end() - begin());}
         size_type capacity() const { return size_type(end_of_storage_ - begin());}
         bool empty() const { return begin() == end();}

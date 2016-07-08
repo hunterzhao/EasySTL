@@ -9,7 +9,7 @@ namespace EasySTL {
     namespace Test{
     	template<class Container>
 		void print_container(Container& container, const std::string& name = ""){//不是每一个容器都有const_iterator
-			std::cout << "Container " << name << " :";
+			std::cout << name << " :";
 			for (auto val : container){
 				std::cout << val << " ";
 			}

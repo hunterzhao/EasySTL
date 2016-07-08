@@ -1,0 +1,15 @@
+ error1: 
+ passing 'const EasySTL::vector<std::basic_string<char>, EasySTL::alloc>' as 'this' 
+ argument of 'T* EasySTL::vector<T, Alloc>::end() 
+ [with 
+ 	T = std::basic_string<char>; 
+ 	Alloc = EasySTL::alloc; 
+ 	EasySTL::vector<T, Alloc>::iterator = std::basic_string<char>*]' 
+ discards qualifiers [-fpermissive]
+         size_type size() const { return size_type(end() - begin());}
+
+
+answer:
+const对象只能调用const成员函数；在一个加了const限定符的成员函数中，不能够调用 非const成员函数。
+因为如果调用了非const成员函数，就违反了const成员函数不改变对象的规定。
+所以为begin() end() 函数添加const
