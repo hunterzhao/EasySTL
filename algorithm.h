@@ -98,11 +98,9 @@ namespace EasySTL {
     OutputIterator __copy(InputIterator first, InputIterator last, OutputIterator result, _false_type){
 
         while (first != last){
-
             *result = *first;
             ++result;
             ++first;
-
         }
 
         return result;

@@ -1,7 +1,7 @@
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
 
-#include <algorithm>
+// #include <algorithm>
 #include <type_traits>
 
 #include "allocator.h"
@@ -33,6 +33,8 @@ namespace EasySTL {
 		iterator end_of_storage_;//目前可用空间的尾
 
 		void insert_aux(iterator position, const T& x);
+        void insert(iterator position, size_type n, const T& x);
+
 		void deallocate() {
 			if (start_) {
 				data_allocator::deallocate(start_, end_of_storage_ - start_);
@@ -82,7 +84,7 @@ namespace EasySTL {
 
         iterator erase(iterator position) {
         	if (position + 1 != end())
-        		copy(position + 1, finish_, position);
+        		EasySTL::copy(position + 1, finish_, position);
             finish_--;
         	destroy(finish_);
         	return position;
@@ -94,7 +96,7 @@ namespace EasySTL {
 
         	if (end_earse + 1 != end()) {  	
         		size_type left = finish_ - end_earse;   //去掉中间一段后，尾巴上还有多少元素
-	        	copy(end_earse, finish_, start_earse);
+	        	EasySTL::copy(end_earse, finish_, start_earse);
 	        	destroy(start_earse + left, finish_);
 	        } else {
 	        	destroy(start_earse, finish_);
@@ -125,7 +127,16 @@ namespace EasySTL {
             return result;
         }
 	};
-    
+
+    template<class T, class Alloc>
+    void vector<T, Alloc>::insert(iterator position, size_type n, const T& x) {
+        while (n > 0) {
+            insert_aux(position, x);
+            position++;
+            n--;
+        }
+    }
+
     template<class T, class Alloc>
     void vector<T, Alloc>::insert_aux(iterator position, const T& x) {
         if (finish_ != end_of_storage_) {

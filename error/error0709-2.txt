@@ -1,0 +1,8 @@
+error: 
+call of overloaded 'copy(std::basic_string<char>*&, std::basic_string<char>*&, std::basic_string<char>*&)' 
+is ambiguous
+           copy(end_earse, finish_, start_earse);
+
+answer:
+自己写的alogrithm copy函数与std中的copy函数发生冲突，编译器不知道选择哪个版本
+为copy添加EasySTL::前缀

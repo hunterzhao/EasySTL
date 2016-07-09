@@ -46,7 +46,7 @@
 
 >容器
 
-1. vector 完成构造，插入，销毁功能
+1. vector done
 2. list
 3. string
 4. deque
@@ -62,7 +62,7 @@
 
 -------------------
 ###测试
-1. vector 构造功能ok
+1. vector 构造功能,插入功能,clear功能,迭代器功能 ok
 
 
 
