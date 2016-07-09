@@ -8,7 +8,7 @@
 namespace EasySTL {
 
 	/*
-	*  未初始化的拷贝
+	*  未初始化的拷贝,在已获得的内存上创建一些元素
 	*/
 	//POD版本的未初始化拷贝
 	template<class InputIterator, class ForwardIterator>

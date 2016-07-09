@@ -1,8 +1,9 @@
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
 
-// #include <algorithm>
+#include <algorithm>
 #include <type_traits>
+#include <iostream>
 
 #include "allocator.h"
 #include "algorithm.h"
@@ -33,7 +34,7 @@ namespace EasySTL {
 		iterator end_of_storage_;//目前可用空间的尾
 
 		void insert_aux(iterator position, const T& x);
-        void insert(iterator position, size_type n, const T& x);
+        //void insert(iterator position, size_type n, const T& x);
 
 		void deallocate() {
 			if (start_) {
@@ -81,7 +82,9 @@ namespace EasySTL {
         	--finish_;
         	destroy(finish_);
         }
-
+        
+        void insert(iterator position, size_type n, const T& x);
+ 
         iterator erase(iterator position) {
         	if (position + 1 != end())
         		EasySTL::copy(position + 1, finish_, position);
@@ -91,7 +94,6 @@ namespace EasySTL {
         }
 
         iterator erase(iterator start_earse, iterator end_earse) {
-        	
 	        size_type erase_size = end_earse - start_earse; //总共去掉多少元素
 
         	if (end_earse + 1 != end()) {  	
@@ -130,10 +132,51 @@ namespace EasySTL {
 
     template<class T, class Alloc>
     void vector<T, Alloc>::insert(iterator position, size_type n, const T& x) {
-        while (n > 0) {
-            insert_aux(position, x);
-            position++;
-            n--;
+        //从position的位置插入n个元素，元素初始值为x
+        std::cout << "i'm in" <<std::endl;
+        T x_copy = x;
+        if (n != 0) {
+            //n必须不为空
+            if (size_type(end_of_storage_ - finish_) >= n) {
+                //内存的空间可以装下新增加的元素
+                const size_type elems_after = finish_ - position;
+                unitialized_fill_n(finish_, n, x_copy);
+                
+                EasySTL::copy(position, finish_, position + n);
+               
+                EasySTL::fill(position, position + n, x_copy);
+               
+                finish_ += n;
+            } else {
+                //内存空间不足以装下新增加的元素
+                const size_type old_size = size();
+                const size_type new_size = old_size + std::max(old_size, n);
+
+                iterator new_start = data_allocator::allocate(new_size);
+                if (!new_start) {
+                    std::cout << "out_of_memory" <<std::endl;
+                    return;
+                }
+                std::cout << new_size <<std::endl;
+                iterator new_finish = new_start;
+                try {
+                    new_finish = uninitialized_copy(start_, finish_, new_start);                   
+                    size_type m = position - start_;
+                    auto new_position = new_start + m;
+                    unitialized_fill_n(new_finish, n, x_copy);
+                    EasySTL::copy(new_position, new_finish, new_position + n);
+                    EasySTL::fill(new_position, new_position + n, x_copy);
+                } catch(...) {
+                    destroy(new_start, new_finish);
+                    data_allocator::deallocate(new_start, new_size);
+                    throw;
+                }
+                clear();
+                deallocate();
+                start_ = new_start;
+                finish_ = new_finish + n;
+                end_of_storage_ = new_start + new_size;
+            }
         }
     }
 
