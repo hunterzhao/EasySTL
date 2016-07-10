@@ -56,6 +56,16 @@ namespace EasySTL {
         size_type capacity() const { return size_type(end_of_storage_ - begin());}
         bool empty() const { return begin() == end();}
         reference operator[](size_type n) {return *(begin() + n);}
+        bool operator ==(const vector& other) const {
+            auto first1 = begin(), last1 = end();
+            auto first2 = other.begin(), last2 = other.end();
+            for (; first1 != last1 && first2 != last2; ++first1, ++first2){
+                if (*first1 != *first2)
+                    return false;
+            }
+            return (first1 == last1 && first2 == last2);
+             
+        }
 
         vector() : start_(0), finish_(0), end_of_storage_(0) {}
         vector(size_type n, const T& value) { fill_initialize(n, value);}

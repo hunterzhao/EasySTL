@@ -7,8 +7,11 @@ namespace EasySTL {
 			//std::string new_EasySTL_vector = "new_EasySTL_vector";
 			//stdVec<std::string> v1(10, "zzz");
 			easyVec<std::string> v1 = {"1","2","3","4"};
+            easyVec<std::string> v2 = {"1","2","3","5"};
 			//EasySTL::Test::print_container(v1, "SGI_vector");
-			EasySTL::Test::print_container(v1, "construct");
+            if (v1 == v2) std::cout<<"equal" <<std::endl;
+            else std::cout<<"not equal" <<std::endl;
+			//EasySTL::Test::print_container(v1, "construct");
 		
             //easyVec<std::string> v3 = {"abc","cba","dca","ghj"};
             //EasySTL::Test::print_container(v3, "v3");
