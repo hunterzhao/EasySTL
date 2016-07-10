@@ -6,11 +6,10 @@ namespace EasySTL {
 			//std::string old_SGI_vector = "old_SGI_vector";
 			//std::string new_EasySTL_vector = "new_EasySTL_vector";
 			//stdVec<std::string> v1(10, "zzz");
-			easyVec<std::string> v2(5, "zm");
+			easyVec<std::string> v1 = {"1","2","3","4"};
 			//EasySTL::Test::print_container(v1, "SGI_vector");
-			EasySTL::Test::print_container(v2, "construct");
-			std::cout<< v2.size() <<std::endl;
-            std::cout<< v2.capacity() <<std::endl;
+			EasySTL::Test::print_container(v1, "construct");
+		
             //easyVec<std::string> v3 = {"abc","cba","dca","ghj"};
             //EasySTL::Test::print_container(v3, "v3");
    //          std::string a = "huyun";
@@ -22,13 +21,13 @@ namespace EasySTL {
 
    //          EasySTL::Test::print_container(v2, "pop_back");
 
-            auto p = v2.begin();
+            //auto p = v2.begin();
 
-            auto q = p + 2;
+            //auto q = p + 2;
 
    //          std::cout << "the second one" <<*p <<std::endl;
-            v2.insert(q,5,"huyun");
-            EasySTL::Test::print_container(v2, "insert");
+            //v2.insert(q,5,"huyun");
+            //EasySTL::Test::print_container(v2, "");
             // v2.erase(p, q);
             // EasySTL::Test::print_container(v2, "erase");
             

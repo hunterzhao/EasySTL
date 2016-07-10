@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <type_traits>
 #include <iostream>
+#include <initializer_list>
 
 #include "allocator.h"
 #include "algorithm.h"
@@ -59,7 +60,14 @@ namespace EasySTL {
         vector() : start_(0), finish_(0), end_of_storage_(0) {}
         vector(size_type n, const T& value) { fill_initialize(n, value);}
         vector(int       n, const T& value) { fill_initialize(n, value);} 
-        vector(long      n, const T& value) { fill_initialize(n, value);} 
+        vector(long      n, const T& value) { fill_initialize(n, value);}
+        vector(const std::initializer_list<T> v) {
+            auto start_v = v.begin();
+            auto end_v = v.end();
+            size_type n = v.size();
+            fill_initialize(n, T());
+            finish_ = EasySTL::copy(start_v, end_v, start_);            
+        }
         explicit vector(size_type n) {fill_initialize(n, T());}
 
         ~vector() {
