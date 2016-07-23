@@ -46,8 +46,8 @@
 
 >容器
 
-1. vector done
-2. list
+1. vector done 2016.7.09
+2. list done 2016.7.23
 3. string
 4. deque
 5. set
@@ -63,7 +63,7 @@
 -------------------
 ###测试
 1. vector 构造功能,列表初始化,插入功能,clear功能,迭代器功能 ok
-
+2. list 构造功能,插入功能,clear功能,迭代器功能,reverse, merge, sort(插入排序) ok
 
 
 
