@@ -1,0 +1,41 @@
+template<class T, class Alloc, size_t BufSize>
+void deque<T, Alloc, BufSize>::fill_initialize(size_type n,
+	const value_type& value) {
+	create_map_and_nodes(n); //安排好deque的结构，获取内存
+	map_pointer cur;
+	for (cur = start.node; cur < finish.node; ++cur)
+		//已经获得了内存，构造buffer的开始节点，结束节点，初始值
+		uninitialized_fill(*cur, *cur + buff_size(), value);
+	uninitialized_fill(finish.first, finish.cur, value);
+}
+
+template<class T, class Alloc, size_t BufSize>
+void deque<T, Alloc, BufSize>::create_map_and_nodes(size_type num_elements) {
+    //如果刚好整除会多分配一个节点
+	size_type num_nodes = num_elements / buff_size() + 1;
+	map_size = max(initial_map_size(), num_nodes + 2);
+	map = map_allocator::allocate(map_size);
+
+	map_pointer nstart = map + (map_size - num_nodes) / 2;
+	map_pointer nfinish = nstart + num_nodes - 1;
+	map_pointer cur;
+
+	for(cur = nstart; cur <= nfinish; cur++) {
+		*cur = allocate_node();
+	}
+    start.set_node(nstart);
+    finish.set_node(nfinish);
+    start.cur = start.first;
+    finish.cur = finish.first + num_elements % buff_size();
+}
+
+template<class T, class Alloc, size_t BufSize>
+void deque<T, Alloc, BufSize>::void push_back_aux(const value_type& t) {
+	value_type t_copy = t;
+	reserve_map_at_back(); //是否需要重换一个map
+	*(finish.node + 1) = allocate_node(); //配置新的map节点
+
+	construct(finish.cur, t_copy);
+	finish.set_node(finish.node + 1);
+	finish.cur = finish.first;
+}
