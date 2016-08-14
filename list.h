@@ -1,3 +1,6 @@
+#ifndef _LIST_H_
+#define _LIST_H_
+
 #include "listIterator.h"
 #include "algorithm.h"
 #include "construct.h"
@@ -246,3 +249,5 @@ namespace EasySTL {
 	    }
 	};
 }
+
+#endif

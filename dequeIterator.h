@@ -25,6 +25,9 @@ namespace EasySTL {
 		T* last;   //迭代器所指的缓冲区的尾
 		map_pointer node;  //控制中心
         
+        inline size_t _deque_buf_size(size_t n, size_t sz) {
+        	return n != 0 ? n : (sz < 512 ? size_t(512 / sz) : size_t(1));
+        }
         //将该迭代器指向新的缓冲区的第一个位置
 		void set_node(map_pointer new_node) {
 			node = new_node;
@@ -65,7 +68,7 @@ namespace EasySTL {
         
         self& operator--(int) {
 			self tmp = *this;
-			--*this
+			--*this;
 			return tmp;
 		}
         
@@ -92,25 +95,26 @@ namespace EasySTL {
                cur = last - (left % (difference_type)buffer_size());
                return *this;
             }
-
-            self operator+(difference_type n) const {
-            	self tmp = *this;
-            	return tmp += n;
-            }
-
-            self& operator-=(difference_type n) { return *this += -n;}
-
-            self operator-(difference_type n) const {
-            	self tmp = *this;
-            	return tmp -= n;
-            }
-            
-            //reference operator[](difference_type n) const { return *(*this + n);}
-            bool operator==(const self& x) const {return cur == x.cur;}
-            bool operator!=(const self& x) const {return cur != x.cur;}
-            bool operator<(const self& x) const {
-            	return (node == x.node) ? (cur < x.cur) : (node < x.node);
-            }
         }
+        
+        self operator+(difference_type n) const {
+        	self tmp = *this;
+        	return tmp += n;
+        }
+
+        self& operator-=(difference_type n) { return *this += -n;}
+
+        self operator-(difference_type n) const {
+        	self tmp = *this;
+        	return tmp -= n;
+        }
+        
+        //reference operator[](difference_type n) const { return *(*this + n);}
+        bool operator==(const self& x) const {return cur == x.cur;}
+        bool operator!=(const self& x) const {return cur != x.cur;}
+        bool operator<(const self& x) const {
+        	return (node == x.node) ? (cur < x.cur) : (node < x.node);
+        }
+        
 	};
 }

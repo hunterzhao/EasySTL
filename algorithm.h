@@ -122,6 +122,14 @@ namespace EasySTL {
 
     }
 
+    template <class InputIterator, class OutputIterator>
+    OutputIterator copy_backward(InputIterator first, InputIterator last, OutputIterator result){
+        
+        OutputIterator new_result = result - (last - first);
+        return _copy(first, last, new_result, value_type(first));
+
+    }
+
     template<>
     inline char *copy(char *first, char *last, char *result){
 
@@ -138,6 +146,15 @@ namespace EasySTL {
         memcpy(result, first, sizeof(*first) * dist);
         return result + dist;
 
+    }
+    template <class T1, class T2>
+    T1 max(T1 a, T2 b) {
+        return a > b ? a : b;
+    }
+
+    template <class T1, class T2>
+    T1 min(T1 a, T2 b) {
+        return a < b ? a : b;
     }
 }
 

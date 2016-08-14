@@ -1,0 +1,5 @@
+error2:
+redeclaration of may not have default arguments
+
+answer:
+put the default argument on the declaration, not the definition.
