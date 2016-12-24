@@ -18,10 +18,8 @@
 -------------------
 
 ### 环境
-- windows10
-- MinGW
-- g++ 4.9.3
-- GUN Make 3.82.90
+- ubuntu 14.04
+- g++ 4.8.8
 - sublime
 - c++11
 
@@ -46,10 +44,10 @@
 
 >容器
 
-1. vector done 2016.7.09
-2. list done 2016.7.23
+1. vector done 2016.7.09 done
+2. list done 2016.7.23 done
 3. string
-4. deque
+4. deque 2016.12.24 done
 5. set
 6. map
 7. unordered_

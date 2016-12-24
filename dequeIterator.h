@@ -25,7 +25,7 @@ namespace EasySTL {
 		T* last;   //迭代器所指的缓冲区的尾
 		map_pointer node;  //控制中心
         
-        inline size_t _deque_buf_size(size_t n, size_t sz) {
+        static size_t _deque_buf_size(size_t n, size_t sz) {
         	return n != 0 ? n : (sz < 512 ? size_t(512 / sz) : size_t(1));
         }
         //将该迭代器指向新的缓冲区的第一个位置

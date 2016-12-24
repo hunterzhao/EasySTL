@@ -1,5 +1,7 @@
 #ifndef _DEQUE_IMP_H_
 #define _DEQUE_IMP_H_
+#include "../uninitialized.h"
+
 namespace EasySTL {
 	template<class T, class Alloc, size_t BufSize>
 	void deque<T, Alloc, BufSize>::fill_initialize(size_type n,
@@ -8,8 +10,8 @@ namespace EasySTL {
 		map_pointer cur;
 		for (cur = start.node; cur < finish.node; ++cur)
 			//已经获得了内存，构造buffer的开始节点，结束节点，初始值
-			uninitialized_fill(*cur, *cur + buffer_size(), value);
-		uninitialized_fill(finish.first, finish.cur, value);
+			unitialized_fill(*cur, *cur + buffer_size(), value);
+		unitialized_fill(finish.first, finish.cur, value);
 	}
 
 	template<class T, class Alloc, size_t BufSize>

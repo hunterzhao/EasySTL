@@ -20,17 +20,19 @@ namespace EasySTL {
             // v2.push_back("def");
 
             stdDeque<double> v1;
+            
             v1.push_back(2);
             v1.push_back(5);
             v1.push_back(3);
             v1.push_back(9);
 
             easyDeque<double> v2;
+
             v2.push_back(2);
             v2.push_back(5);
             v2.push_back(3);
             v2.push_back(9);
-            
+            EasySTL::Test::print_container(v2,"deque");
             if (EasySTL::Test::container_equal(v1, v2)){
                 std::cout <<"equel"<<std::endl;
             }

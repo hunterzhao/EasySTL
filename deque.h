@@ -3,7 +3,6 @@
 
 #include "dequeIterator.h"
 #include "allocator.h"
-#include "iterator.h"
 #include "construct.h"
 #include "algorithm.h"
 enum {_min_map_num = 8};
@@ -35,7 +34,7 @@ namespace EasySTL {
 
         static size_t buffer_size() {return _deque_buf_size(BufSize, sizeof(T));}
         
-        inline size_t _deque_buf_size(size_t n, size_t sz) {
+        static size_t _deque_buf_size(size_t n, size_t sz) {
             return n != 0 ? n : (sz < 512 ? size_t(512 / sz) : size_t(1));
         }
         
@@ -58,7 +57,9 @@ namespace EasySTL {
         void pop_front_aux();
 
     public:
-        deque(){}
+        deque() :start(), finish(), map_size(0), map(0){
+            create_map_and_nodes(0);
+        }
         deque(int n, const value_type& value)
            : start(), finish(), map(0), map_size(0) {
                fill_initialize(n, value);

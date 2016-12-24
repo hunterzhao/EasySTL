@@ -1,10 +1,11 @@
-#include "test\vectorTest.h"
-#include "test\listTest.h"
-#include "test\dequeTest.h"
+#include "test/vectorTest.h"
+#include "test/listTest.h"
+#include "test/dequeTest.h"
 
 int main() {
+	//EasySTL::ListTest::testCase1();
 	//EasySTL::VectorTest::testCase1();
-	EasySTL::ListTest::testCase1();
-	system("pause");
+	EasySTL::DequeTest::testCase1();
+	getchar();
 	return 0;
 }
