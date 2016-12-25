@@ -6,7 +6,6 @@
 
 #include "iterator.h"
 #include "typetraits.h"
-
 namespace EasySTL {
     //***** fill O(N)******
     template<class ForwardIterator, class T>
@@ -80,6 +79,90 @@ namespace EasySTL {
 
     }
     
+    //********** [push_heap] ******************************
+template <class RandomAccessIterator, class Distance, class T>
+inline void __push_heap(RandomAccessIterator first, Distance holeIndex, Distance topIndex, T value) {
+    Distance parent = (holeIndex-1) / 2;
+    while(holeIndex > topIndex && *(first + parent) < value) {
+        *(first + holeIndex) = *(first + parent);//父节点的值下降
+        holeIndex = parent;
+        parent = (holeIndex - 1) / 2;  //找下一个父节点位置
+    }
+    *(first + holeIndex) = value; //
+}
+
+template <class RandomAccessIterator, class Distance, class T> 
+inline void __push_heap_aux(RandomAccessIterator first, RandomAccessIterator last,
+                     Distance *, T*) {
+    EasySTL::__push_heap(first, Distance((last - first) - 1), Distance(0), T(*(last - 1)));
+}
+
+template <class RandomAccessIterator>
+inline void push_heap(RandomAccessIterator first, RandomAccessIterator last) {
+    //新元素已经位于底部容器的最尾端
+    EasySTL::__push_heap_aux(first, last, difference_type(first), value_type(first));
+}
+
+ //********** [pop_heap] ******************************
+//将最大值放到末尾
+  template <class RandomAccessIterator, class T, class Distance>
+ void __adjust_heap(RandomAccessIterator first, Distance holeIndex, 
+                    Distance len, T value) {
+    Distance topIndex = holeIndex;
+    Distance secondChild = 2*holeIndex + 2;
+    while(secondChild < len) {
+        //比较洞的左右孩子，然后以secondChild 代表较大节点
+        if (*(first + secondChild) < *(first + (secondChild - 1)))
+            secondChild--;
+        //较大的孩子作为洞值，洞下移至较大子节点处
+        *(first + holeIndex) = *(first + secondChild);
+        holeIndex = secondChild;
+        secondChild = 2 * (secondChild + 1);
+    }
+    if(secondChild == len) {//没有右节点只有左节点
+        *(first + holeIndex) = *(first + (secondChild - 1));
+        holeIndex = secondChild - 1;
+    }
+    EasySTL::__push_heap(first, holeIndex, topIndex, value);
+ }
+
+ template <class RandomAccessIterator, class T, class Distance>
+ inline void __pop_heap(RandomAccessIterator first, RandomAccessIterator last,
+                   RandomAccessIterator result, T value, Distance*) {
+    *result = *first;
+    EasySTL::__adjust_heap(first, Distance(0), Distance(last - first), value);//value 暂时保存
+ }
+
+ template<class RandomAccessIterator, class T>
+ inline void __pop_heap_aux(RandomAccessIterator first, RandomAccessIterator last, T*) {
+    EasySTL::__pop_heap(first, last-1, last-1, T(*(last-1)), difference_type(first));
+ }
+
+ template<class RandomAccessIterator>
+ inline void pop_heap(RandomAccessIterator first, RandomAccessIterator last) {
+    EasySTL::__pop_heap_aux(first, last, value_type(first));
+ }
+
+  //********** [pop_heap] ******************************
+ template<class RandomIterator, class T, class Distance>
+ void __make_heap(RandomIterator first,
+                  RandomIterator last, T*, Distance*) {
+    if(last- first<2) return;
+    Distance len = last - first;
+    Distance parent = (len -2)/2;
+    while(true) {//调整整个树的所有父节点
+        EasySTL::__adjust_heap(first, parent, len, T(*(first + parent)));
+        if (parent == 0) return;
+        parent--;
+    }
+ }
+
+ template<class RandomIterator>
+ inline void make_heap(RandomIterator first, RandomIterator last) {
+    EasySTL::__make_heap(first, last, value_type(first), difference_type(first));
+ }
+
+ 
     //********** [advance] ******************************
     //********* [Algorithm Complexity: O(N)] ****************
     template<class InputIterator, class Distance>
