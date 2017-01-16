@@ -1,0 +1,9 @@
+Access not within mapped region at address 0xFFE801FF8
+Stack overflow in thread #1: can't grow stack to 0xffe801000
+at 0x406EA5: EasySTL::__rb_tree_iterator<int, int&, int*>::__rb_tree_iterator(EasySTL::__rb_tree_iterator<int, int&, int*> const&) (RBtreeIterator.h:87)
+
+因为我递归死循环了，问题出在
+bool operator==(iterator iter) { return *this == iter;}
+
+应该改为检查iterator指向的底层node是否是同一个
+bool operator==(const self& iter) const { return node == iter.node;}
