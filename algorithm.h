@@ -275,6 +275,17 @@ inline void push_heap(RandomAccessIterator first, RandomAccessIterator last) {
     T1 min(T1 a, T2 b) {
         return a < b ? a : b;
     }
+
+    //********** [find] *************************
+    //********* [Algorithm Complexity: O(N)] ****************
+    template <class InputIterator, class T>
+    InputIterator find(InputIterator first, InputIterator last, const T& val){
+        for (; first != last; ++first){
+            if (*first == val)
+                break;
+        }
+        return first;
+    }
 }
 
 #endif

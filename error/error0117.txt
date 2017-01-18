@@ -1,0 +1,4 @@
+redefinition of default argument for ‘class Alloc’  头文件没有加#ifndef
+
+cannot convert ‘std::__iterator_category<EasySTL::__rb_tree_iterator<int, const int&, const int*> >((*(const EasySTL::__rb_tree_iterator<int, const int&, const int*>*)(& __first)))’ (type ‘std::__iterator_traits<EasySTL::__rb_tree_iterator<int, const int&, const int*>, true>::iterator_category {aka EasySTL::bidirectional_iterator_tag}’) to type ‘std::input_iterator_tag’
+            std::__iterator_category(__first));

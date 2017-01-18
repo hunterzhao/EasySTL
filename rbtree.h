@@ -1,4 +1,6 @@
-#include <utility>
+#ifndef RBTREE_H_
+#define RBTREE_H_
+#include "pair.h"
 #include "RBtreeIterator.h"
 #include "construct.h"
 #include "allocator.h"
@@ -15,6 +17,7 @@ public:
 	typedef Key key_type;
 	typedef Value value_type;
 	typedef value_type* pointer;
+    typedef const value_type* const_pointer;
 	typedef const value_type& const_reference;
 
 	typedef rb_tree_node* link_type;
@@ -108,6 +111,7 @@ protected:
     }
 public:
 	typedef __rb_tree_iterator<value_type, reference, pointer> iterator;
+    typedef __rb_tree_iterator<value_type, const_reference, const_pointer> const_iterator;
 
 private:
 	             //新值插入点         插入点的父节点    新值
@@ -161,15 +165,15 @@ public:
 
 public:
 	Compare key_comp() const {return key_compare;}
-	iterator begin() {return leftmost();}
-	iterator end() {return header;} //RBtree的重点为header所指的位置
+	iterator begin() const {return leftmost();}
+	iterator end() const {return header;} //RBtree的重点为header所指的位置
     bool empty() const { return node_count == 0;}
     size_type size() const {return node_count;}
     size_type max_size() const { return size_type(-1);}
 
 public:
 	//将想插入REtree中节点独一无二
-    std::pair<iterator, bool> insert_unique(const value_type& v) {
+    pair<iterator, bool> insert_unique(const value_type& v) {
     	link_type y  = header;
     	link_type x  = root();
     	bool comp = true;
@@ -182,14 +186,21 @@ public:
     	iterator j = iterator(y);
     	if (comp)
     		if (j == begin())
-    			return std::pair<iterator, bool>(__insert(x, y, v), true);
+    			return pair<iterator, bool>(__insert(x, y, v), true);
     	    else
     	    	--j;
 
     	if (key_compare(key(j.node), KeyOfValue()(v)))
-    		return std::pair<iterator, bool>(__insert(x, y, v), true);
+    		return pair<iterator, bool>(__insert(x, y, v), true);
 
-    	return std::pair<iterator, bool>(j, false);
+    	return pair<iterator, bool>(j, false);
+    }
+    
+    template<class iterator>
+    bool insert_unique(iterator first, iterator last) {
+        for(auto it =first;it!=last;it++) {
+            insert_unique(*it);
+        }
     }
     //将想插入RB-tree中允许节点值重复
     iterator insert_equal(const value_type& v) {
@@ -290,5 +301,19 @@ public:
     	x->parent = y;
     }
 
+    iterator find(const Key& k) {
+    	link_type y = header;  //last node which is not less than k
+    	link_type x = root();  //current node
+        
+        while(x != 0)
+        	if (!key_compare(key(x), k))  //该数是否比 k 大，是的话向左子树去
+        		y = x, x = left(x); //注意语法！
+        	else
+        		x = right(x);
+        iterator j = iterator(y);
+        return (j==end() || key_compare(k, key(j.node))) ? end() : j;
+    }
+
 };
 }
+#endif

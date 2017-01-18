@@ -1,0 +1,5 @@
+could not convert ‘EasySTL::rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_unique(const value_type&) [with Key = std::basic_string<char>; Value = EasySTL::pair<const std::basic_string<char>, int>; KeyOfValue = EasySTL::select1st<EasySTL::pair<const std::basic_string<char>, int> >; Compare = EasySTL::less<std::basic_string<char> >; Alloc = EasySTL::alloc; EasySTL::rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::value_type = EasySTL::pair<const std::basic_string<char>, int>]((* & x))’ 
+
+from ‘std::pair<EasySTL::__rb_tree_iterator<EasySTL::pair<const std::basic_string<char>, int>, EasySTL::pair<const std::basic_string<char>, int>&, EasySTL::pair<const std::basic_string<char>, int>*>, bool>’ 
+
+to ‘EasySTL::pair<EasySTL::__rb_tree_iterator<EasySTL::pair<const std::basic_string<char>, int>, EasySTL::pair<const std::basic_string<char>, int>&, EasySTL::pair<const std::basic_string<char>, int>*>, bool>’
