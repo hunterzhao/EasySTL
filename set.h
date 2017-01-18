@@ -88,7 +88,7 @@ public:
     	t.erase((rep_iterator&)first, (rep_iterator&)last);
     }
     void clear() {t.clear();}
-    iterator find(const key_type& x) const{return t.find(x);}
+    iterator find(const key_type& x) const {return t.find(x);}
     size_type count(const key_type& x) const {return t.count(x);}
     iterator lower_bound(const key_type& x) const {
     	return t.lower_bound(x);
@@ -99,12 +99,16 @@ public:
     pair<iterator, iterator> equal_range(const key_type&x) const {
     	return t.equal_range(x);
     }
-    friend bool operator==(const set<Key, Compare, Alloc>& x,
-    	                   const set<Key, Compare, Alloc>& y) {
-    	return x.t == y.t;
-    }
+    
     
 };
+
+template <class Key, class Compare, class Alloc>
+inline bool operator==(const set<Key, Compare, Alloc>& x,
+                           const set<Key, Compare, Alloc>& y) {
+        return x.t == y.t;
+    }
+
 template <class Key, class Compare, class Alloc>
 inline bool operator < (const set<Key, Compare, Alloc>& x,
     	                    const set<Key, Compare, Alloc>& y) {

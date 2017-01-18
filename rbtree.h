@@ -172,7 +172,7 @@ public:
     size_type max_size() const { return size_type(-1);}
 
 public:
-	//将想插入REtree中节点独一无二
+	//将想插入REtree中节点独一无二 如果插入失败返回的是指向该节点的迭代器·
     pair<iterator, bool> insert_unique(const value_type& v) {
     	link_type y  = header;
     	link_type x  = root();

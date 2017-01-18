@@ -20,7 +20,7 @@ public:
 	typedef T data_type;
 	typedef T mapped_type;
 	typedef pair<const Key, T> value_type;
-	typedef Compare key_compare; // 键值比较函数
+	typedef Compare key_compare; // 键值比较函数,创建对象，可以直接使用()
     
     
     //内部类
@@ -81,6 +81,7 @@ public:
     size_type max_size() const { return t.max_size();}
     //下标操作
     T& operator[](const key_type& k) {
+    	//insert 返回pair<iterator, bool>
     	return (*((insert(value_type(k, T()))).first)).second;
     }
     void swap(map<Key, T, Compare, Alloc>& x) {t.swap(x.t);}
