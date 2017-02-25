@@ -3,7 +3,7 @@
 namespace EasySTL {
 	char *alloc::start_free = 0;
   char *alloc::end_free = 0;
-  size_t alloc::heap_size = 0;
+  size_t alloc::heap_size = 0;//what's the meaning of heapsize?
 
   alloc::obj * volatile alloc::free_list[alloc::_NFREELIST] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
